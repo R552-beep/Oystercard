@@ -6,4 +6,8 @@ describe Oystercard do
     expect(subject.balance).to eq 0
   end
 
+  it 'top up the card' do
+    subject.top_up(50)
+    expect(subject.balance).to eq 50
+  end
 end
