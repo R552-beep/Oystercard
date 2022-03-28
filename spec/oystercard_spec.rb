@@ -20,10 +20,37 @@ describe Oystercard do
   
   describe '#deduct' do
     it { is_expected.to respond_to(:deduct).with(1).argument }
+    
     it 'deducts an amonut from the balance' do
-    subject.top_up(50)
-    expect{ subject.deduct 3}.to change{ subject.balance }.by -3
+      subject.top_up(50)
+      expect{ subject.deduct 3}.to change{ subject.balance }.by -3
     end
   end
 
+  describe '#touch_in' do
+    it { is_expected.to respond_to (:touch_in) }
+
+    it 'Should be able to touch in' do
+      subject.touch_in
+      expect(subject.in_journey?).to eq true
+    end
+  end
+
+  describe '#touch_out' do
+    it { is_expected.to respond_to (:touch_out) }
+
+    it 'Should be able to touch out' do
+      subject.touch_in
+      subject.touch_out
+      expect(subject.in_journey?).to eq false
+    end
+  end
+
+  describe '#in_journey?' do
+    it { is_expected.to respond_to (:in_journey?) }
+
+    it 'is initially not in a journey' do
+      expect(subject).not_to be_in_journey
+    end
+  end
 end
