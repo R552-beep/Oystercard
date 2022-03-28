@@ -19,15 +19,22 @@ describe Oystercard do
   end
 
   describe '#touch_in' do
-    it { is_expected.to respond_to (:touch_in) }
-
+    it 'remembers the entry station' do
+     station = double 
+     subject.top_up(1) 
+     subject.touch_in(station)
+     expect(subject.entry_station).to eq station 
+    end  
+    
     it 'check for minimum balance' do
-      expect { subject.touch_in }.to raise_error "Insufficient balance"
+      station = double 
+      expect { subject.touch_in(station) }.to raise_error "Insufficient balance"
     end
 
     it 'Should be able to touch in' do
+      station = double
       subject.top_up(1)
-      subject.touch_in
+      subject.touch_in(station)
       expect(subject.in_journey?).to eq true
     end
   end
@@ -36,15 +43,17 @@ describe Oystercard do
     it { is_expected.to respond_to (:touch_out) }
 
     it 'Should be able to touch out' do
+      station = double
       subject.top_up(1)
-      subject.touch_in
+      subject.touch_in(station)
       subject.touch_out
       expect(subject.in_journey?).to eq false
     end
 
     it 'Should take a minimum fare when touching out' do
+      station = double
       subject.top_up(1)
-      subject.touch_in
+      subject.touch_in(station)
       expect{ subject.touch_out }.to change{ subject.balance }.by -1
     end
   end
