@@ -46,7 +46,7 @@ describe Oystercard do
       station = double
       subject.top_up(1)
       subject.touch_in(station)
-      subject.touch_out
+      subject.touch_out("bank")
       expect(subject.in_journey?).to eq false
     end
 
@@ -54,7 +54,7 @@ describe Oystercard do
       station = double
       subject.top_up(1)
       subject.touch_in(station)
-      expect{ subject.touch_out }.to change{ subject.balance }.by -1
+      expect{ subject.touch_out("Stratford") }.to change{ subject.balance }.by -1
     end
   end
 
@@ -64,5 +64,16 @@ describe Oystercard do
     it 'is initially not in a journey' do
       expect(subject).not_to be_in_journey
     end
+  end
+
+  it 'by default oystercard will have empty journey list' do
+     expect(subject.journey_history).to eq [] 
+  end
+
+  it 'should create 1 journey whilst touching in/out' do
+    subject.top_up(1)
+    subject.touch_in('Bank')
+    subject.touch_out('Oxford')
+    expect(subject.journey_history.count).to eq 1 
   end
 end
