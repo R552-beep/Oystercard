@@ -23,7 +23,7 @@ describe Oystercard do
      station = double 
      subject.top_up(1) 
      subject.touch_in(station)
-     expect(subject.entry_station).to eq station 
+     expect(subject.current_journey.entry_station).to eq station
     end  
     
     it 'check for minimum balance' do
@@ -35,7 +35,7 @@ describe Oystercard do
       station = double
       subject.top_up(1)
       subject.touch_in(station)
-      expect(subject.in_journey?).to eq true
+      expect(subject.current_journey.entry_station).to eq station
     end
   end
 
@@ -76,4 +76,5 @@ describe Oystercard do
     subject.touch_out('Oxford')
     expect(subject.journey_history.count).to eq 1 
   end
+
 end

@@ -2,9 +2,9 @@ require 'journey'
 
 describe Journey do
 
-  describe '#in_journey?' do
-  it { is_expected.to respond_to (:in_journey?) }
+  it'#in_journey?' do
+    journey = Journey.new("Bank")
+    expect(journey.exit_station).to eq nil
   end
 
-  
 end
