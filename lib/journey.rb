@@ -1,11 +1,9 @@
-require 'oystercard.rb'
-
 class Journey
 attr_accessor :entry_station, :exit_station, :journey
 
 PENALTY_FARE = 6
 
-  def initialize(entry_station) 
+  def initialize(entry_station = nil) 
     @entry_station = entry_station
     @exit_station = nil
     @journey = { "Entry Station" => @entry_station }
